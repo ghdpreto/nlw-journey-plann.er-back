@@ -10,11 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Trip {
+public class TripEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private UUID id;
 
     @Column(nullable = false)

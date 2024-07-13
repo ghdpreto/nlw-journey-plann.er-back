@@ -72,4 +72,25 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("{id}/confirm")
+    public ResponseEntity<TripEntity> confirmTrip(@PathVariable UUID id) {
+        Optional<TripEntity> trip = this.tripRepository.findById(id);
+
+        if (trip.isPresent()) {
+            TripEntity rawTrip = trip.get();
+
+            rawTrip.setIsConfirmed(true);
+
+            this.tripRepository.save(rawTrip);
+            /**
+             * Notificando participantes referente a confirmacao do evento
+             */
+            this.participantService.triggerConfirmationEMailToParticipants(id);
+
+            return ResponseEntity.ok(rawTrip);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
 }

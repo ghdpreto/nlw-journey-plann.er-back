@@ -25,7 +25,20 @@ public class ParticipantService {
         System.out.println(participants.get(0).getId());
     }
 
+    public ParticipantCreateResponse registerParticipantToEvent(String email, TripEntity trip) {
+        ParticipantEntity participant = new ParticipantEntity(email, trip);
+
+        this.participantRepository.save(participant);
+
+        return new ParticipantCreateResponse(participant.getId());
+    }
+
     public void triggerConfirmationEMailToParticipants(UUID tripId) {
 
+    }
+
+    public void triggerConfirmationEMailToParticipant(String email) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'triggerConfirmationEMailToParticipant'");
     }
 }

@@ -1,5 +1,8 @@
 package br.com.ghdpreto.planner.activities;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,13 @@ public class ActivityService {
         this.activityRepository.save(activity);
 
         return new ActivityResponse(activity.getId());
+
+    }
+
+    public List<ActivityData> getAllActivitiesFromEvent(UUID id) {
+        return this.activityRepository.findByTripId(id).stream()
+                .map(activity -> new ActivityData(activity.getId(), activity.getTitle(), activity.getOccursAt()))
+                .toList();
 
     }
 }

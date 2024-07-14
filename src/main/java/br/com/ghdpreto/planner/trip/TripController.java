@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ghdpreto.planner.activities.ActivityData;
+import br.com.ghdpreto.planner.activities.ActivityEntity;
 import br.com.ghdpreto.planner.activities.ActivityRequestPayload;
 import br.com.ghdpreto.planner.activities.ActivityResponse;
 import br.com.ghdpreto.planner.activities.ActivityService;
@@ -23,6 +25,7 @@ import br.com.ghdpreto.planner.participant.ParticipantService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("trips")
@@ -145,6 +148,13 @@ public class TripController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("{id}/activities")
+    public ResponseEntity<List<ActivityData>> getActivities(@PathVariable UUID id) {
+        List<ActivityData> activitiesList = this.activityService.getAllActivitiesFromEvent(id);
+
+        return ResponseEntity.ok(activitiesList);
     }
 
 }

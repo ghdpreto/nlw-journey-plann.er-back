@@ -1,0 +1,5 @@
+package br.com.ghdpreto.planner.link;
+
+public record LinkRequestPayload(String title, String url) {
+
+}

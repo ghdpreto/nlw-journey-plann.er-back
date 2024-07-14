@@ -1,4 +1,4 @@
-package br.com.ghdpreto.planner.activities;
+package br.com.ghdpreto.planner.activity;
 
 import java.util.List;
 import java.util.UUID;

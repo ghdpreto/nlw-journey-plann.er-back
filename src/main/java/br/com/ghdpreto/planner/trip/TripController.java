@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ghdpreto.planner.activities.ActivityData;
-import br.com.ghdpreto.planner.activities.ActivityEntity;
-import br.com.ghdpreto.planner.activities.ActivityRequestPayload;
-import br.com.ghdpreto.planner.activities.ActivityResponse;
-import br.com.ghdpreto.planner.activities.ActivityService;
+import br.com.ghdpreto.planner.activity.ActivityData;
+import br.com.ghdpreto.planner.activity.ActivityEntity;
+import br.com.ghdpreto.planner.activity.ActivityRequestPayload;
+import br.com.ghdpreto.planner.activity.ActivityResponse;
+import br.com.ghdpreto.planner.activity.ActivityService;
 import br.com.ghdpreto.planner.participant.ParticipantCreateResponse;
 import br.com.ghdpreto.planner.participant.ParticipantData;
 import br.com.ghdpreto.planner.participant.ParticipantRequestPayload;

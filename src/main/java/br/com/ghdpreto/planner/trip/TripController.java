@@ -2,7 +2,6 @@ package br.com.ghdpreto.planner.trip;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,15 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ghdpreto.planner.activities.ActivityRequestPayload;
+import br.com.ghdpreto.planner.activities.ActivityResponse;
+import br.com.ghdpreto.planner.activities.ActivityService;
 import br.com.ghdpreto.planner.participant.ParticipantCreateResponse;
 import br.com.ghdpreto.planner.participant.ParticipantData;
-import br.com.ghdpreto.planner.participant.ParticipantEntity;
 import br.com.ghdpreto.planner.participant.ParticipantRequestPayload;
 import br.com.ghdpreto.planner.participant.ParticipantService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("trips")
@@ -32,6 +32,9 @@ public class TripController {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ActivityService activityService;
 
     @PostMapping("")
     public ResponseEntity<TripCreateResponse> createTrip(@RequestBody TripRequestPayload payload) {
@@ -125,6 +128,23 @@ public class TripController {
 
         List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
         return ResponseEntity.ok(participantList);
+    }
+
+    @PostMapping("{id}/activities")
+    public ResponseEntity<ActivityResponse> registrerActivity(@PathVariable UUID id,
+            @RequestBody ActivityRequestPayload payload) {
+        Optional<TripEntity> trip = this.tripRepository.findById(id);
+
+        if (trip.isPresent()) {
+
+            TripEntity rawTrip = trip.get();
+            ActivityResponse activityResponse = this.activityService.registerActivity(payload, rawTrip);
+
+            return ResponseEntity.ok(activityResponse);
+
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }
